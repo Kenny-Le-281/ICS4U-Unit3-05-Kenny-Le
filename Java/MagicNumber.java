@@ -44,33 +44,27 @@ final class Main {
     private static int numberOfMagicSquares = 0;
 
     public static void genSquare(final int[] square, final int currentIndex) {
-        final int maxNumber = 9;
-        final int lastIndex = maxNumber - 1;
+        final int lastIndex = square.length - 1;
 
-        for (int counter = 1; counter <= maxNumber; counter++) {
-            square[currentIndex] = counter;
-            if (currentIndex < lastIndex) {
-                genSquare(square, currentIndex + 1);
-            } else {
-                if (!hasDuplicates(square)) {
-                    if (isMagic(square)) {
-                        printMagicSquare(square);
-                    }
-                }
+        if (currentIndex > lastIndex) {
+            if (isMagic(square)) {
+                printMagicSquare(square);
+                numberOfMagicSquares++;
+            }
+            return;
+        }
+
+        boolean[] used = new boolean[NINE + 1]; // Array to mark used numbers
+        for (int i = 0; i < currentIndex; i++) {
+            used[square[i]] = true; // Mark numbers already placed in the square as used
+        }
+
+        for (int counter = 1; counter <= NINE; counter++) {
+            if (!used[counter]) {
+                square[currentIndex] = counter; // Place the current number in the square
+                genSquare(square, currentIndex + 1); // Recursively fill the next position
             }
         }
-    }
-
-    // Checks if the given array has duplicates
-    public static boolean hasDuplicates(int[] array) {
-        for (int currentIndex = 0; currentIndex < array.length; currentIndex++) {
-            for (int nextIndex = currentIndex + 1; nextIndex < array.length; nextIndex++) {
-                if (array[currentIndex] == array[nextIndex]) {
-                    return true; // Found a duplicate
-                }
-            }
-        }
-        return false; // No duplicates found
     }
 
 

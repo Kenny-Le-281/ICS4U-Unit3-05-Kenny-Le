@@ -17,7 +17,7 @@ function genSquare(square: number[], currentIndex: number): void {
   for (let counter = 1; counter <= maxNumber; counter++) {
     square[currentIndex] = counter
     if (currentIndex < lastIndex) {
-      genSquare(square, index + 1)
+      genSquare(square, currentIndex + 1)
     } else {
       if (!hasDuplicates(square)) {
         if (isMagic(square)) {

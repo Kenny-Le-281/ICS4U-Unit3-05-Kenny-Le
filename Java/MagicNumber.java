@@ -1,7 +1,5 @@
-
 /*
-* This program prints out
-* the Magic Sqaures.
+* This program prints the Magic Sqaures.
 *
 * @author  Kenny Le
 * @version 1.0
@@ -45,14 +43,36 @@ final class Main {
     private static int numberOfProcess = 0;
     private static int numberOfMagicSquares = 0;
 
-    public static void genSquare2(final int[] square, final int index) {
-        // generate the magic sqaure
+    public static void genSquare(final int[] square, final int currentIndex) {
+        final int maxNumber = 9;
+        final int lastIndex = maxNumber - 1;
+
+        for (int counter = 1; counter <= maxNumber; counter++) {
+            square[currentIndex] = counter;
+            if (currentIndex < lastIndex) {
+                genSquare(square, currentIndex + 1);
+            } else {
+                if (!hasDuplicates(square)) {
+                    if (isMagic(square)) {
+                        printMagicSquare(square);
+                    }
+                }
+            }
+        }
     }
 
-    public static void genSquare(final int[] square, final int[] currentSquare,
-                                 final int index) {
-        // generate the magic sqaure
+    // Checks if the given array has duplicates
+    public static boolean hasDuplicates(int[] array) {
+        for (int currentIndex = 0; currentIndex < array.length; currentIndex++) {
+            for (int nextIndex = currentIndex + 1; nextIndex < array.length; nextIndex++) {
+                if (array[currentIndex] == array[nextIndex]) {
+                    return true; // Found a duplicate
+                }
+            }
+        }
+        return false; // No duplicates found
     }
+
 
     public static boolean isMagic(final int[] preSquare) {
         // returns true or false for whether or not array is a magic square
@@ -67,8 +87,8 @@ final class Main {
         int diag2 = preSquare[TWO] + preSquare[FOUR] + preSquare[SIX];
 
         return row1 == MAGICNUM && row2 == MAGICNUM && row3 == MAGICNUM
-               && col1 == MAGICNUM && col2 == MAGICNUM
-               && col3 == MAGICNUM && diag1 == MAGICNUM && diag2 == MAGICNUM;
+                && col1 == MAGICNUM && col2 == MAGICNUM
+                && col3 == MAGICNUM && diag1 == MAGICNUM && diag2 == MAGICNUM;
     }
 
     public static void printMagicSquare(final int[] outputSquare) {

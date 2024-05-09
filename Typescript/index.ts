@@ -2,7 +2,7 @@
 * This program uses a method to find every "magic" square.
 * @author Kenny Le
 * @version 1.0
-* @since   2024-04-24
+* @since   2024-0-08
 */
 
 // Number constants

@@ -33,11 +33,11 @@ function hasDuplicates(array: number[]): boolean {
   for (let currentIndex = 0; currentIndex < array.length; currentIndex++) {
     for (let nextIndex = currentIndex + 1; nextIndex < array.length; nextIndex++) {
       if (array[currentIndex] === array[nextIndex]) {
-        return true; // Found a duplicate
+        return true // Found a duplicate
       }
     }
   }
-  return false; // No duplicates found
+  return false // No duplicates found
 }
 
 // Checks if it is a magic square

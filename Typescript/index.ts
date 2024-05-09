@@ -1,4 +1,3 @@
-
 /*
 * This program uses a method to find every "magic" square.
 * @author Kenny Le
@@ -52,8 +51,8 @@ function isMagic(preSquare: number[]): boolean {
   let diag2: number = preSquare[2] + preSquare[4] + preSquare[6]
 
   return row1 == magicNumber && row2 == magicNumber && row3 == magicNumber
-         && col1 == magicNumber && col2 == magicNumber
-         && col3 == magicNumber && diag1 == magicNumber && diag2 == magicNumber
+        && col1 == magicNumber && col2 == magicNumber
+        && col3 == magicNumber && diag1 == magicNumber && diag2 == magicNumber
 }
 
 // Prints formatted magic squares to the console.

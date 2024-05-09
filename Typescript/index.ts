@@ -1,8 +1,7 @@
 
 /*
 * This program uses a method to find every "magic" square.
-*
-* @author  Cristiano Sellitto
+* @author Kenny Le
 * @version 1.0
 * @since   2024-04-24
 */
@@ -10,33 +9,38 @@
 // Number constants
 const magicNumber: number = 15
 
-/**
- * Generates magic squares
- *
- * @param square the starting square
- * @param index the first index to use
- */
-function genSquare(square: number[], index: number): void {
+// Generates the magic sqaure
+function genSquare(square: number[], currentIndex: number): void {
   const maxNumber: number = 9
-  for (let counter = 1; counter < maxNumber + 1; counter++) {
-    square[index] = counter
-    if (index < maxNumber - 1) {
+  const lastIndex: number = maxNumber -1
+
+  for (let counter = 1; counter <= maxNumber; counter++) {
+    square[currentIndex] = counter
+    if (currentIndex < lastIndex) {
       genSquare(square, index + 1)
     } else {
-      const duplicates: number[] = square.filter((item, index) => square.indexOf(item) < index)
-      if (isMagic(square) && duplicates.length == 0) {
-        printMagicSquare(square)
+      if (!hasDuplicates(square)) {
+        if (isMagic(square)) {
+          printMagicSquare(square);
+        }
       }
     }
   }
 }
 
-/**
- * Checks if a square is magic.
- *
- * @param preSquare the square to be checked
- * @returns if the square is magic
- */
+// Checks if the given array has duplicates
+function hasDuplicates(array: number[]): boolean {
+  for (let currentIndex = 0; currentIndex < array.length; currentIndex++) {
+    for (let nextIndex = currentIndex + 1; nextIndex < array.length; nextIndex++) {
+      if (array[currentIndex] === array[nextIndex]) {
+        return true; // Found a duplicate
+      }
+    }
+  }
+  return false; // No duplicates found
+}
+
+// Checks if it is a magic square
 function isMagic(preSquare: number[]): boolean {
   let row1: number = preSquare[0] + preSquare[1] + preSquare[2]
   let row2: number = preSquare[3] + preSquare[4] + preSquare[5]
@@ -52,11 +56,7 @@ function isMagic(preSquare: number[]): boolean {
          && col3 == magicNumber && diag1 == magicNumber && diag2 == magicNumber
 }
 
-/**
- * Prints formatted magic squares to the console.
- *
- * @param outputSquare the square to be formatted
- */
+// Prints formatted magic squares to the console.
 function printMagicSquare(outputSquare: number[]): void {
   console.log("\n*****")
   for (let counter = 0; counter < outputSquare.length; counter++) {

@@ -1,9 +1,10 @@
 /*
-* This program prints the Magic Sqaures.
+* This program prints out
+* the Magic Sqaures.
 *
 * @author  Kenny Le
 * @version 1.0
-* @since   2024-05-06
+* @since   2020-01-01
 */
 
 final class Main {
@@ -43,30 +44,14 @@ final class Main {
     private static int numberOfProcess = 0;
     private static int numberOfMagicSquares = 0;
 
-    public static void genSquare(final int[] square, final int currentIndex) {
-        final int lastIndex = square.length - 1;
-
-        if (currentIndex > lastIndex) {
-            if (isMagic(square)) {
-                printMagicSquare(square);
-                numberOfMagicSquares++;
-            }
-            return;
-        }
-
-        boolean[] used = new boolean[NINE + 1]; // Array to mark used numbers
-        for (int i = 0; i < currentIndex; i++) {
-            used[square[i]] = true; // Mark numbers already placed in the square as used
-        }
-
-        for (int counter = 1; counter <= NINE; counter++) {
-            if (!used[counter]) {
-                square[currentIndex] = counter; // Place the current number in the square
-                genSquare(square, currentIndex + 1); // Recursively fill the next position
-            }
-        }
+    public static void genSquare2(final int[] square, final int index) {
+        // generate the magic sqaure
     }
 
+    public static void genSquare(final int[] square, final int[] currentSquare,
+                                final int index) {
+        // generate the magic sqaure
+    }
 
     public static boolean isMagic(final int[] preSquare) {
         // returns true or false for whether or not array is a magic square
@@ -105,8 +90,11 @@ final class Main {
         int[] extraArray = {0, 0, 0, 0, 0, 0, 0, 0, 0};
         System.out.println("\n");
         System.out.println("All Possible Magic Squares (3x3):\n");
-        genSquare(magicSquare, extraArray, 0);
+        //genSquare2(magicSquare, 0);
+        //genSquare(magicSquare, extraArray, 0);
 
+        System.out.println("Number of processes: " + numberOfProcess);
+        System.out.println("Number of Magic Squares: " + numberOfMagicSquares);
         System.out.println("\nDone.");
     }
 }

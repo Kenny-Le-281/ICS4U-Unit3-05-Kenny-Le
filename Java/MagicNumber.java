@@ -105,11 +105,8 @@ final class Main {
         int[] extraArray = {0, 0, 0, 0, 0, 0, 0, 0, 0};
         System.out.println("\n");
         System.out.println("All Possible Magic Squares (3x3):\n");
-        //genSquare2(magicSquare, 0);
-        //genSquare(magicSquare, extraArray, 0);
+        genSquare(magicSquare, extraArray, 0);
 
-        System.out.println("Number of processes: " + numberOfProcess);
-        System.out.println("Number of Magic Squares: " + numberOfMagicSquares);
         System.out.println("\nDone.");
     }
 }

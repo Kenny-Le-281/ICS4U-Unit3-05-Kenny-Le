@@ -45,12 +45,29 @@ final class Main {
     private static int numberOfMagicSquares = 0;
 
     public static void genSquare2(final int[] square, final int index) {
-        // generate the magic sqaure
+        final int maxNumber = 9;
+        for (int counter = 1; counter < maxNumber + 1; counter++) {
+            square[index] = counter;
+            if (index < maxNumber - 1) {
+                genSquare(square, index + 1);
+            } else {
+                if (isMagic(square)) {
+                    boolean duplicates = false;
+                    for (int i = 0; i < square.length; i++) {
+                        for (int j = i + 1; j < square.length; j++) {
+                            if (square[i] == square[j]) {
+                                duplicates = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!duplicates) {
+                        printMagicSquare(square);
+                    }
+                }
+            }
+        }
     }
-
-    public static void genSquare(final int[] square, final int[] currentSquare,
-                                final int index) {
-        // generate the magic sqaure
     }
 
     public static boolean isMagic(final int[] preSquare) {

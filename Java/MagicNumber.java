@@ -4,23 +4,17 @@
 *
 * @author  Kenny Le
 * @version 1.0
-* @since   2020-01-01
+* @since   2020-05-06
 */
 
-final class Main {
-    private Main() {
+final class MagicNumber {
+    private MagicNumber() {
         // Prevent instantiation
         // Optional: throw an exception e.g. AssertionError
         // if this ever *is* called
         throw new IllegalStateException("Cannot be instantiated");
     }
 
-    /** The top left index. */
-    public static final int ZERO = 0;
-    /** The top middle index. */
-    public static final int ONE = 1;
-    /** The top right index. */
-    public static final int TWO = 2;
     /** The middle left index. */
     public static final int THREE = 3;
     /** The center index. */
@@ -38,49 +32,46 @@ final class Main {
     /** The maximum number for magicNumbers. */
     public static final int MAGICNUM = 15;
 
+
     /**
     * Process numbers.
     */
     private static int numberOfProcess = 0;
     private static int numberOfMagicSquares = 0;
 
-    public static void genSquare2(final int[] square, final int index) {
-        final int maxNumber = 9;
-        for (int counter = 1; counter < maxNumber + 1; counter++) {
-            square[index] = counter;
-            if (index < maxNumber - 1) {
-                genSquare(square, index + 1);
-            } else {
-                if (isMagic(square)) {
-                    boolean duplicates = false;
-                    for (int i = 0; i < square.length; i++) {
-                        for (int j = i + 1; j < square.length; j++) {
-                            if (square[i] == square[j]) {
-                                duplicates = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!duplicates) {
-                        printMagicSquare(square);
-                    }
+    public static void genSquare(final int[] square, final int[] currentSquare,
+                                final int index) {
+        // generate the magic sqaure
+        for (int counter = 0; counter < square.length; counter++) {
+            numberOfProcess++;
+            if (currentSquare[counter] == 0) {
+                // incriment to the next step
+                square[index] = counter + 1;
+                currentSquare[counter] = 1;
+
+                // only fill in spots that have not yet been filled in
+                if (index < square.length - 1) {
+                    genSquare(square, currentSquare, index + 1);
+                } else if (isMagic(square) == true) {
+                    // if all done and it is magic, then print it out
+                    printMagicSquare(square);
+                    numberOfMagicSquares++;
                 }
+                currentSquare[counter] = 0;
             }
         }
-    }
     }
 
     public static boolean isMagic(final int[] preSquare) {
         // returns true or false for whether or not array is a magic square
-        // this assumes there are no repeats, but that check could be added!
-        int row1 = preSquare[ZERO] + preSquare[ONE] + preSquare[TWO];
+        int row1 = preSquare[0] + preSquare[1] + preSquare[2];
         int row2 = preSquare[THREE] + preSquare[FOUR] + preSquare[FIVE];
         int row3 = preSquare[SIX] + preSquare[SEVEN] + preSquare[EIGHT];
-        int col1 = preSquare[ZERO] + preSquare[THREE] + preSquare[SIX];
-        int col2 = preSquare[ONE] + preSquare[FOUR] + preSquare[SEVEN];
-        int col3 = preSquare[TWO] + preSquare[FIVE] + preSquare[EIGHT];
-        int diag1 = preSquare[ZERO] + preSquare[FOUR] + preSquare[EIGHT];
-        int diag2 = preSquare[TWO] + preSquare[FOUR] + preSquare[SIX];
+        int col1 = preSquare[0] + preSquare[THREE] + preSquare[SIX];
+        int col2 = preSquare[1] + preSquare[FOUR] + preSquare[SEVEN];
+        int col3 = preSquare[2] + preSquare[FIVE] + preSquare[EIGHT];
+        int diag1 = preSquare[0] + preSquare[FOUR] + preSquare[EIGHT];
+        int diag2 = preSquare[2] + preSquare[FOUR] + preSquare[SIX];
 
         return row1 == MAGICNUM && row2 == MAGICNUM && row3 == MAGICNUM
                 && col1 == MAGICNUM && col2 == MAGICNUM
@@ -103,15 +94,10 @@ final class Main {
 
     public static void main(final String[] args) {
         // main stub, get user input here
-        int[] magicSquare = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int[] magicSquare = {1, 2, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE};
         int[] extraArray = {0, 0, 0, 0, 0, 0, 0, 0, 0};
         System.out.println("\n");
         System.out.println("All Possible Magic Squares (3x3):\n");
-        //genSquare2(magicSquare, 0);
-        //genSquare(magicSquare, extraArray, 0);
-
-        System.out.println("Number of processes: " + numberOfProcess);
-        System.out.println("Number of Magic Squares: " + numberOfMagicSquares);
-        System.out.println("\nDone.");
+        genSquare(magicSquare, extraArray, 0);
     }
 }
